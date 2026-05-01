@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW i7 — Redefining Electric Luxury</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #000000;
+  --void: #050505;
+  --blue: #0066FF;
+  --blue-dim: #0044bb;
+  --red: #E60023;
+  --white: #ffffff;
+  --silver: #c8c8c8;
+  --dim: #888888;
+  --panel: rgba(5,5,5,0.85);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+#cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(0,102,255,0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+body:hover #cursor { opacity: 1; }
+
+/* ─── NAVBAR ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 48px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, transparent 100%);
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  padding: 16px 48px;
+  background: rgba(0,0,0,0.96);
+  border-bottom: 1px solid rgba(0,102,255,0.15);
+  backdrop-filter: blur(20px);
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.nav-logo {
+  width: 44px; height: 44px;
+}
+.nav-brand-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  color: var(--white);
+  font-weight: 700;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--silver);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: transparent;
+  border: 1px solid var(--blue);
+  color: var(--blue);
+  padding: 10px 24px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.nav-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--blue);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+.nav-cta:hover { color: var(--white); }
+.nav-cta:hover::before { transform: translateX(0); }
+.nav-cta span { position: relative; z-index: 1; }
+
+/* ─── HERO SECTION ─── */
+#hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.6) contrast(1.1);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(0,102,255,0.08) 0%, transparent 60%),
+    linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 50%, rgba(0,0,0,0.3) 100%),
+    linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.9) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 40px;
+}
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeUp 1s ease 0.3s both;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 10vw, 140px);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  animation: fadeUp 1s ease 0.5s both;
+}
+.hero-title em {
+  font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.6);
+}
+.hero-subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-bottom: 56px;
+  animation: fadeUp 1s ease 0.7s both;
+}
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  animation: fadeUp 1s ease 0.9s both;
+}
+.btn-primary {
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  padding: 16px 40px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 16px 40px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-outline:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeUp 1s ease 1.2s both;
+}
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--blue), transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+.scroll-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+/* ─── SECTION BASE ─── */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  background: var(--void);
+  border-top: 1px solid rgba(0,102,255,0.2);
+  border-bottom: 1px solid rgba(0,102,255,0.2);
+  padding: 40px 80px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+.stat-item:last-child { border-right: none; }
+.stat-item.visible { opacity: 1; transform: translateY(0); }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-num span {
+  font-size: 32px;
+  color: var(--blue);
+  vertical-align: super;
+}
+.stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.stat-unit {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  color: var(--dim);
+  margin-top: 2px;
+}
+
+/* ─── DESIGN SECTION ─── */
+#design {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.design-visual {
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.design-visual video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8) contrast(1.15) saturate(0.9);
+  transition: transform 8s ease;
+}
+#design:hover .design-visual video {
+  transform: scale(1.04);
+}
+.design-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 80px;
+  background: var(--void);
+}
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-tag::before {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--blue);
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+.section-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.section-body {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--silver);
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.15s;
+}
+.section-body.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  transition: all 0.8s ease 0.3s;
+  transform: translateY(20px);
+}
+.feature-list.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: var(--silver);
+}
+.feature-list li::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+
+/* ─── PERFORMANCE SECTION ─── */
+#performance {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.perf-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.perf-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) contrast(1.2) saturate(0.7);
+}
+.perf-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, transparent 60%);
+}
+.perf-content {
+  position: relative;
+  z-index: 2;
+  padding: 100px 80px;
+}
+.perf-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 7vw, 100px);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.perf-headline em {
+  font-style: italic;
+  color: var(--red);
+}
+.perf-sub {
+  font-size: 18px;
+  color: var(--silver);
+  letter-spacing: 0.1em;
+  margin-bottom: 60px;
+  max-width: 500px;
+}
+.perf-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 0 60px;
+  width: fit-content;
+  margin-bottom: 50px;
+}
+.metric {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+.metric.visible { opacity: 1; transform: translateY(0); }
+.metric-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+.metric-val sup {
+  font-size: 20px;
+  color: var(--blue);
+}
+.metric-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ─── VIDEO STRIP ─── */
+.video-strip {
+  height: 70vh;
+  position: relative;
+  overflow: hidden;
+}
+.video-strip video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65) contrast(1.1);
+}
+.video-strip-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(to right, rgba(0,0,0,0.7) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.7) 100%),
+    radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.4) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-strip-text {
+  text-align: center;
+}
+.video-strip-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 72px);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.video-strip-text p {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+/* ─── TECHNOLOGY SECTION ─── */
+#technology {
+  background: var(--void);
+  padding: 120px 80px;
+}
+.tech-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.tech-card {
+  background: var(--void);
+  padding: 50px 40px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease, background 0.4s ease;
+}
+.tech-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tech-card:hover {
+  background: rgba(0,102,255,0.05);
+}
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.tech-card:hover::before { transform: scaleX(1); }
+.tech-icon {
+  width: 48px; height: 48px;
+  margin-bottom: 28px;
+  color: var(--blue);
+}
+.tech-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+.tech-card p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--silver);
+  line-height: 1.7;
+}
+.tech-card .tc-num {
+  position: absolute;
+  bottom: 24px; right: 32px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.12);
+  letter-spacing: 0.2em;
+}
+
+/* ─── INTERIOR SECTION ─── */
+#interior {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.interior-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 80px;
+  background: linear-gradient(135deg, #050505 0%, #0a0a14 100%);
+  order: -1;
+}
+.interior-visual {
+  position: relative;
+  overflow: hidden;
+}
+.interior-visual video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75) contrast(1.1) saturate(0.8);
+}
+.luxury-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,102,255,0.1);
+  border: 1px solid rgba(0,102,255,0.3);
+  padding: 8px 20px;
+  margin-bottom: 32px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+.luxury-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+
+/* ─── SPECS SECTION ─── */
+#specs {
+  background: var(--black);
+  padding: 120px 80px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.specs-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.specs-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 900px;
+  margin: 0 auto;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+.spec-row.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-key {
+  padding: 20px 32px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+  text-transform: uppercase;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+}
+.spec-val {
+  padding: 20px 32px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+
+/* ─── FINAL CTA ─── */
+#cta {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 50%, rgba(0,102,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(230,0,35,0.06) 0%, transparent 60%),
+    var(--black);
+}
+.cta-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0,102,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,102,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+.cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 700px;
+  padding: 40px;
+}
+.cta-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 10vw, 128px);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.cta-title em {
+  font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+}
+.cta-sub {
+  font-size: 18px;
+  color: var(--silver);
+  letter-spacing: 0.15em;
+  margin-bottom: 60px;
+  font-weight: 300;
+}
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-xl {
+  padding: 20px 60px;
+  font-size: 14px;
+  letter-spacing: 0.25em;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--void);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 60px 80px 40px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  margin-bottom: 60px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.footer-brand p {
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1.7;
+  margin-top: 16px;
+  max-width: 280px;
+}
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.footer-col h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-col a {
+  text-decoration: none;
+  color: var(--dim);
+  font-size: 14px;
+  transition: color 0.3s ease;
+  cursor: none;
+}
+.footer-col a:hover { color: var(--white); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.2);
+  text-transform: uppercase;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Staggered card animations */
+.tech-card:nth-child(1) { transition-delay: 0s; }
+.tech-card:nth-child(2) { transition-delay: 0.1s; }
+.tech-card:nth-child(3) { transition-delay: 0.2s; }
+.tech-card:nth-child(4) { transition-delay: 0.1s; }
+.tech-card:nth-child(5) { transition-delay: 0.2s; }
+.tech-card:nth-child(6) { transition-delay: 0.3s; }
+
+.stat-item:nth-child(1) { transition-delay: 0s; }
+.stat-item:nth-child(2) { transition-delay: 0.1s; }
+.stat-item:nth-child(3) { transition-delay: 0.2s; }
+.stat-item:nth-child(4) { transition-delay: 0.3s; }
+
+.metric:nth-child(1) { transition-delay: 0s; }
+.metric:nth-child(2) { transition-delay: 0.15s; }
+.metric:nth-child(3) { transition-delay: 0.3s; }
+
+@media (max-width: 1024px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero-title { font-size: 80px; }
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  #design, #interior { grid-template-columns: 1fr; }
+  .design-visual, .interior-visual { height: 50vh; }
+  .design-content, .interior-content { padding: 60px 40px; }
+  .tech-grid { grid-template-columns: 1fr 1fr; }
+  .specs-table { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; }
+  .footer-links { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 56px; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: 1fr; }
+  .perf-metrics { grid-template-columns: 1fr; gap: 30px; }
+  .spec-row { grid-template-columns: 1fr; }
+  .spec-key { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 20px 8px; }
+  .spec-val { padding: 8px 20px 16px; }
+  .footer-links { grid-template-columns: 1fr; }
+  .cta-title { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#hero" class="nav-brand">
+    <svg class="nav-logo" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="22" cy="22" r="21" stroke="white" stroke-width="1"/>
+      <circle cx="22" cy="22" r="16" stroke="white" stroke-width="0.5"/>
+      <path d="M22 6 C22 6 22 22 6 22 C6 22 22 22 22 38 C22 38 22 22 38 22 C38 22 22 22 22 6Z" fill="none"/>
+      <path d="M22 6 L22 38" stroke="white" stroke-width="0.5"/>
+      <path d="M6 22 L38 22" stroke="white" stroke-width="0.5"/>
+      <path fill="#0066FF" d="M6 22 A16 16 0 0 1 22 6 L22 22 Z"/>
+      <path fill="white" d="M22 6 A16 16 0 0 1 38 22 L22 22 Z"/>
+      <path fill="white" d="M38 22 A16 16 0 0 1 22 38 L22 22 Z"/>
+      <path fill="#0066FF" d="M22 38 A16 16 0 0 1 6 22 L22 22 Z"/>
+      <circle cx="22" cy="22" r="5" fill="#050505"/>
+      <text x="22" y="25.5" font-family="Arial" font-size="6" font-weight="bold" fill="white" text-anchor="middle">BMW</text>
+    </svg>
+    <span class="nav-brand-text">BMW</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#design">Design</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#technology">Technology</a></li>
+    <li><a href="#interior">Interior</a></li>
+    <li><a href="#specs">Specs</a></li>
+  </ul>
+  <button class="nav-cta"><span>Build & Price</span></button>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <video id="hero-video" autoplay muted loop playsinline>
+    <source src="bmw vid1 final.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">BMW i7 · 2025 · Electric Flagship</p>
+    <h1 class="hero-title">THE<br><em>BMW</em><br>i7</h1>
+    <p class="hero-subtitle">Redefining Electric Luxury</p>
+    <div class="hero-actions">
+      <a href="#design" class="btn-primary"><span>Explore the i7</span></a>
+      <a href="#cta" class="btn-outline">Configure Yours</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">3<span>.8</span></div>
+    <div class="stat-unit">Seconds</div>
+    <div class="stat-label">0 — 60 mph</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">610<span>hp</span></div>
+    <div class="stat-unit">Combined Output</div>
+    <div class="stat-label">xDrive M70</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">318<span>mi</span></div>
+    <div class="stat-unit">EPA Estimated</div>
+    <div class="stat-label">Electric Range</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">195<span>+</span></div>
+    <div class="stat-unit">mph Top Speed</div>
+    <div class="stat-label">M Sport Dynamics</div>
+  </div>
+</div>
+
+<!-- ── DESIGN ── -->
+<section id="design">
+  <div class="design-visual">
+    <video autoplay muted loop playsinline>
+      <source src="bmw vid1 final.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="design-content">
+    <div class="section-tag">01 / Design</div>
+    <h2 class="section-title">Crafted to<br><em style="font-style:italic;color:rgba(255,255,255,0.5)">command</em><br>attention.</h2>
+    <p class="section-body">
+      Every curve is an intention. Every surface a statement. The BMW i7 redefines what a luxury sedan can look like — sculpted from wind, light, and decades of design mastery into something entirely new.
+    </p>
+    <ul class="feature-list">
+      <li>Iconic kidney grille — illuminated, adaptive</li>
+      <li>Aerodynamic coefficient of 0.24 Cd</li>
+      <li>21-inch M light-alloy wheels as standard</li>
+      <li>Crystal headlights with Laserlight technology</li>
+      <li>Available in 12 signature exterior colors</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── PERFORMANCE ── -->
+<section id="performance">
+  <div class="perf-bg">
+    <video autoplay muted loop playsinline>
+      <source src="bmw vid2.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="perf-content">
+    <div class="section-tag">02 / Performance</div>
+    <h2 class="perf-headline">Power without<br><em>compromise.</em></h2>
+    <p class="perf-sub">Electric performance that rewrites the rules of what a luxury sedan can achieve.</p>
+    <div class="perf-metrics">
+      <div class="metric">
+        <div class="metric-val">610<sup>hp</sup></div>
+        <div class="metric-desc">Peak Power Output</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">3.8<sup>s</sup></div>
+        <div class="metric-desc">0–60 mph Sprint</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">195<sup>+</sup></div>
+        <div class="metric-desc">Top Speed mph</div>
+      </div>
+    </div>
+    <a href="#cta" class="btn-primary"><span>M Performance Options</span></a>
+  </div>
+</section>
+
+<!-- ── VIDEO STRIP ── -->
+<div class="video-strip">
+  <video autoplay muted loop playsinline>
+    <source src="bmw vid1 final.mp4" type="video/mp4">
+  </video>
+  <div class="video-strip-overlay">
+    <div class="video-strip-text">
+      <h2>Intelligence, Engineered.</h2>
+      <p>BMW Operating System 9 · Advanced Driver Assist · Over-The-Air Updates</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── TECHNOLOGY ── -->
+<section id="technology">
+  <div class="tech-header">
+    <div class="section-tag" style="justify-content:center">03 / Technology</div>
+    <h2 class="section-title" style="text-align:center;margin:0 auto">Intelligence,<br><em style="font-style:italic;color:rgba(255,255,255,0.4)">engineered.</em></h2>
+  </div>
+  <div class="tech-grid">
+    <div class="tech-card">
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="24" cy="24" r="20"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8"/><circle cx="24" cy="24" r="6"/>
+      </svg>
+      <h3>BMW OS 9.0</h3>
+      <p>The most advanced operating system in any vehicle. Adaptive intelligence that learns your preferences and evolves continuously.</p>
+      <span class="tc-num">01</span>
+    </div>
+    <div class="tech-card">
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="8" y="8" width="32" height="32" rx="3"/>
+        <path d="M16 24h16M24 16v16"/>
+      </svg>
+      <h3>31" Theatre Screen</h3>
+      <p>4K resolution rear-seat cinema display with 5.1 surround sound. Transform every journey into a private theatre.</p>
+      <span class="tc-num">02</span>
+    </div>
+    <div class="tech-card">
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 36L24 12l12 24"/>
+        <path d="M15 28h18"/>
+      </svg>
+      <h3>M xDrive AWD</h3>
+      <p>Torque distribution across all four wheels, optimized in milliseconds. Precision handling in every condition.</p>
+      <span class="tc-num">03</span>
+    </div>
+    <div class="tech-card">
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 16c0-4 4-8 16-8s16 4 16 8v4c0 4-4 8-16 8S8 24 8 20v-4z"/>
+        <path d="M8 26v6c0 4 4 8 16 8s16-4 16-8v-6"/>
+      </svg>
+      <h3>Solid-State Battery</h3>
+      <p>Next-generation energy storage delivering 318 miles of range with rapid DC charging capability of up to 195kW.</p>
+      <span class="tc-num">04</span>
+    </div>
+    <div class="tech-card">
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="24" cy="24" r="8"/>
+        <path d="M24 8v4M24 36v4M8 24h4M36 24h4M12 12l3 3M33 33l3 3M12 36l3-3M33 15l3-3"/>
+      </svg>
+      <h3>BMW Laserlight</h3>
+      <p>Illumination range of 650 meters — more than double conventional LED. Adaptive beam technology for maximum safety.</p>
+      <span class="tc-num">05</span>
+    </div>
+    <div class="tech-card">
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M24 8l4 12h12L30 28l4 12-10-7-10 7 4-12L8 20h12z"/>
+      </svg>
+      <h3>Over-The-Air Updates</h3>
+      <p>Your i7 improves while you sleep. Seamless software evolution means your car gets smarter with every update.</p>
+      <span class="tc-num">06</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTERIOR ── -->
+<section id="interior">
+  <div class="interior-content">
+    <div class="luxury-badge">Executive Lounge</div>
+    <div class="section-tag">04 / Interior</div>
+    <h2 class="section-title">A space designed<br>around <em style="font-style:italic;color:rgba(255,255,255,0.45)">you.</em></h2>
+    <p class="section-body">
+      Step inside and leave the world behind. The BMW i7 Executive Lounge redefines what it means to travel. Merino leather, ambient lighting in 36 colors, and silence engineered to perfection.
+    </p>
+    <ul class="feature-list">
+      <li>Merino leather Nappa upholstery throughout</li>
+      <li>Sky Lounge Panoramic glass roof</li>
+      <li>Bowers & Wilkins Diamond surround sound</li>
+      <li>Rear executive seats with massage function</li>
+      <li>4-zone automatic climate with ionizer</li>
+    </ul>
+  </div>
+  <div class="interior-visual">
+    <video autoplay muted loop playsinline>
+      <source src="bmw vid1 final.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- ── SPECS ── -->
+<section id="specs">
+  <div class="specs-header">
+    <div class="section-tag" style="justify-content:center">05 / Specifications</div>
+    <h2 class="section-title" style="text-align:center;margin:0 auto">Every<br><em style="font-style:italic;color:rgba(255,255,255,0.4)">detail</em><br>measured.</h2>
+  </div>
+  <div class="specs-table">
+    <div class="spec-row">
+      <div class="spec-key">Model</div>
+      <div class="spec-val">BMW i7 xDrive60</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Drive System</div>
+      <div class="spec-val">Dual Motor AWD</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Power Output</div>
+      <div class="spec-val">536 hp / 400 kW</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Peak Torque</div>
+      <div class="spec-val">745 lb-ft</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">0–60 mph</div>
+      <div class="spec-val">4.5 seconds</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Top Speed</div>
+      <div class="spec-val">149 mph (electronically limited)</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Battery Capacity</div>
+      <div class="spec-val">101.7 kWh (usable)</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">EPA Range</div>
+      <div class="spec-val">318 miles</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Max DC Charging</div>
+      <div class="spec-val">195 kW</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Wheelbase</div>
+      <div class="spec-val">3,215 mm / 126.6 in</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Curb Weight</div>
+      <div class="spec-val">5,705 lbs / 2,587 kg</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">Starting MSRP</div>
+      <div class="spec-val">$119,300 USD</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-grid-overlay"></div>
+  <div class="cta-content">
+    <p class="cta-label">The Ultimate Electric Machine</p>
+    <h2 class="cta-title">This is<br><em>BMW.</em></h2>
+    <p class="cta-sub">Experience the future. Reserve yours today.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary btn-xl"><span>Build & Price</span></a>
+      <a href="#" class="btn-outline btn-xl">Find a Dealer</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <svg viewBox="0 0 60 60" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" stroke="white" stroke-width="1.2"/>
+        <circle cx="30" cy="30" r="21" stroke="white" stroke-width="0.6"/>
+        <path fill="#0066FF" d="M9 30 A21 21 0 0 1 30 9 L30 30 Z"/>
+        <path fill="white" d="M30 9 A21 21 0 0 1 51 30 L30 30 Z"/>
+        <path fill="white" d="M51 30 A21 21 0 0 1 30 51 L30 30 Z"/>
+        <path fill="#0066FF" d="M30 51 A21 21 0 0 1 9 30 L30 30 Z"/>
+        <circle cx="30" cy="30" r="6" fill="#050505"/>
+        <text x="30" y="33.5" font-family="Arial" font-size="7" font-weight="bold" fill="white" text-anchor="middle">BMW</text>
+      </svg>
+      <p>Bayerische Motoren Werke AG. The Ultimate Driving Machine since 1916.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Models</h4>
+        <ul>
+          <li><a href="#">BMW i7</a></li>
+          <li><a href="#">BMW 7 Series</a></li>
+          <li><a href="#">BMW M7</a></li>
+          <li><a href="#">BMW iX</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Experience</h4>
+        <ul>
+          <li><a href="#">Test Drive</a></li>
+          <li><a href="#">Virtual Tour</a></li>
+          <li><a href="#">BMW Events</a></li>
+          <li><a href="#">Ownership</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About BMW</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Innovation</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 BMW AG. All Rights Reserved.</span>
+    <span>Privacy · Legal · Cookies</span>
+  </div>
+</footer>
+
+<script>
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '6px';
+    cursor.style.height = '6px';
+    ring.style.width = '60px';
+    ring.style.height = '60px';
+    ring.style.borderColor = 'rgba(0,102,255,0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px';
+    cursor.style.height = '12px';
+    ring.style.width = '40px';
+    ring.style.height = '40px';
+    ring.style.borderColor = 'rgba(0,102,255,0.6)';
+  });
+});
+
+// ─── NAVBAR SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+// ─── INTERSECTION OBSERVER ───
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll(
+  '.section-title, .section-body, .feature-list, .stat-item, .metric, .tech-card, .spec-row'
+).forEach(el => io.observe(el));
+
+// ─── SMOOTH PARALLAX ───
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    heroVideo.style.transform = `translateY(${y * 0.3}px)`;
+  }
+});
+</script>
+</body>
+</html>
